@@ -1,6 +1,5 @@
 package main.validator;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -8,7 +7,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import main.controller.User;
+import main.model.User;
+import main.service.UserService;
 
 @Component
 public class UserFormValidator implements Validator{

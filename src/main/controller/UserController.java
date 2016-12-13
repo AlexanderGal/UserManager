@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import main.model.User;
+import main.service.UserService;
 import main.validator.UserFormValidator;
 
 @Controller
@@ -29,10 +31,6 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	UserFormValidator userFormValidator;
-	
-	
-	
-	
 	//Main page
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String index(Model model){
@@ -46,15 +44,12 @@ public class UserController {
 		model.addAttribute("users", userService.findAll());
 		return "users/list";
 	}
-	
-	
 	//Use with anotation @Validated at User
 	//other way to use in saveOrUpdateUser() - userFormValidator.validate(user,result)
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
 		binder.setValidator(userFormValidator);
 	}
-	
 	//save or update user
 	//1.@ModelAttribute bind form value
 	//2.@Validated form validator
@@ -84,7 +79,6 @@ public class UserController {
 			//return "user/list"
 		}
 	}
-	
 	//show add user form
 	@RequestMapping(value="/users/add", method=RequestMethod.GET)
 	public String showAddUserForm(Model model){
@@ -104,20 +98,18 @@ public class UserController {
 		populateDefaultModel(model);
 		return "users/userform";
 	}
-	
 	//show update form
 	@RequestMapping(value ="/users/{id}/update", method = RequestMethod.GET)
-	public String showUpdateUserForm(@PathVariable("id") int id, Model model){
+	public String showUpdateUserForm(@PathVariable("id") Long id, Model model){
 		logger.debug("showUpdateUserForm() : {}", id);
 		User user = userService.findById(id);
 		model.addAttribute("userForm",user);
 		populateDefaultModel(model);
 		return "users/userform";
 	}
-	
 	//delete user
 	@RequestMapping(value="/users/{id}/delete", method = RequestMethod.POST)
-	public String deleteUser(@PathVariable("id") int id, 
+	public String deleteUser(@PathVariable("id") Long id, 
 								final RedirectAttributes redirectAttributes){
 		logger.debug("deleteUser() : {}",id);
 		userService.delete(id);
@@ -125,10 +117,9 @@ public class UserController {
 		redirectAttributes.addFlashAttribute("msg","User is deleted!");
 		return "redirect:/users";
 	}
-	
 	//show user
 	@RequestMapping(value="/users/{id}", method = RequestMethod.GET)
-	public String showUser(@PathVariable("id")int id, Model model){
+	public String showUser(@PathVariable("id")Long id, Model model){
 		logger.debug("showUser() id : {}", id);
 		User user = userService.findById(id);
 		if(user == null){
@@ -138,7 +129,6 @@ public class UserController {
 		model.addAttribute("user",user);
 		return "users/show";
 	}
-	
 	private void populateDefaultModel(Model model){
 		List<String> frameworkList = new ArrayList<String>();
 		frameworkList.add("Spring MVC");
