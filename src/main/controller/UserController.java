@@ -42,7 +42,7 @@ public class UserController {
 	public String showAllUsers(Model model){
 		logger.debug("showAllUsers()");
 		model.addAttribute("users", userService.findAll());
-		return "users/list";
+		return "list";
 	}
 	//Use with anotation @Validated at User
 	//other way to use in saveOrUpdateUser() - userFormValidator.validate(user,result)
@@ -62,7 +62,7 @@ public class UserController {
 		logger.debug("saveOrUpdateUser : {}", user);
 		if(result.hasErrors()){
 			populateDefaultModel(model);
-			return "users/userform";
+			return "userform";
 		} else {
 			//add message to flash scope
 			redirectAttributes.addFlashAttribute("css","success");
@@ -96,7 +96,7 @@ public class UserController {
 		user.setNumber(2);
 		model.addAttribute("userForm", user);
 		populateDefaultModel(model);
-		return "users/userform";
+		return "userform";
 	}
 	//show update form
 	@RequestMapping(value ="/users/{id}/update", method = RequestMethod.GET)
@@ -105,7 +105,7 @@ public class UserController {
 		User user = userService.findById(id);
 		model.addAttribute("userForm",user);
 		populateDefaultModel(model);
-		return "users/userform";
+		return "userform";
 	}
 	//delete user
 	@RequestMapping(value="/users/{id}/delete", method = RequestMethod.POST)
@@ -127,7 +127,7 @@ public class UserController {
 			model.addAttribute("msg","User not found");
 		}
 		model.addAttribute("user",user);
-		return "users/show";
+		return "show";
 	}
 	private void populateDefaultModel(Model model){
 		List<String> frameworkList = new ArrayList<String>();

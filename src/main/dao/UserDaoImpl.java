@@ -11,12 +11,16 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import main.model.User;
 
 //TODO - Spring Data JPA/Hibernate 	
 
+@Repository
 public class UserDaoImpl implements UserDao{
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
@@ -39,14 +43,19 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public void save(User user) {
-		// TODO Auto-generated method stub
-		
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		String sql = "INSERT INTO USERS(NAME,EMAIL,ADDRESS,PASSWORD,NEWSLETTER,FRAMEWORK,SEX,NUMBER,COUNTRY,SKILL)"
+				+ " VALUES ( :name, :email, :address, :password, :newsletter, :framework, :sex, :number, :country, :skill)";
+		namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user),keyHolder);
+		user.setId(keyHolder.getKey().longValue());
 	}
 
 	@Override
 	public void update(User user) {
-		// TODO Auto-generated method stub
-		
+		String sql = "UPDATE USERS SET NAME=:name, EMAIL=:email, ADDRESS=:address,"
+				+ "PASSWORD=:password, NEWSLETTER=:newsletter, FRAMEWORK=:framework,"
+				+ "SEX=:sex, NUMBER=:number, COUNTRY=:country, SKILL=:skill WHERE id=:id";
+		namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user));
 	}
 
 	@Override
@@ -57,7 +66,19 @@ public class UserDaoImpl implements UserDao{
 	
 	private SqlParameterSource getSqlParameterByModel(User user){
 		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-		//TODO add value
+		paramSource.addValue("id", user.getId());
+		paramSource.addValue("name", user.getName());
+		paramSource.addValue("email", user.getEmail());
+		paramSource.addValue("address", user.getAddress());
+		paramSource.addValue("password", user.getPassword());
+		paramSource.addValue("newsletter", user.isNewsletter());
+		
+		//join String
+		paramSource.addValue("framework", convertListToDelimitedString(user.getFramework()));
+		paramSource.addValue("sex", user.getSex());
+		paramSource.addValue("number", user.getNumber());
+		paramSource.addValue("country", user.getCountry());
+		paramSource.addValue("skill", convertListToDelimitedString(user.getSkill()));
 		return paramSource;
 	}
 	

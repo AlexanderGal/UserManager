@@ -14,7 +14,7 @@ import main.service.UserService;
 public class UserFormValidator implements Validator{
 	
 	@Autowired
-	@Qualifier
+	@Qualifier(value="emailValidator")
 	EmailValidator emailValidator;
 	
 	@Autowired

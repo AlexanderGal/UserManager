@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan({"main.config","main.dao","main.model","main.service","main.validator" })
+@ComponentScan({"main.config","main.dao","main.model","main.service","main.validator","main.controller" })
 public class SpringWebConfig  extends WebMvcConfigurerAdapter{
 
 	@Override
@@ -24,7 +24,7 @@ public class SpringWebConfig  extends WebMvcConfigurerAdapter{
 	public InternalResourceViewResolver viewResolver(){
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/views/");
+		viewResolver.setPrefix("/WEB-INF/views/jsp/");
 		viewResolver.setSuffix(".jsp");
 		return viewResolver; 
 	}
