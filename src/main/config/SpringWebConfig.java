@@ -3,7 +3,7 @@ package main.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-//import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -29,10 +29,10 @@ public class SpringWebConfig  extends WebMvcConfigurerAdapter{
 		return viewResolver; 
 	}
 	
-//	@Bean
-//	public ResourceBundleMessageSource messageSource(){
-//		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-//		messageSource.setBasenames(new String[] { "messages/messages", "messages/validation"});
-//		return messageSource;
-//	}
+	@Bean
+	public ResourceBundleMessageSource messageSource(){
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setBasenames(new String[] { "validation"});
+		return messageSource;
+	}
 }

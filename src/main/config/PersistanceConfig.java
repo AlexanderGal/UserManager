@@ -24,10 +24,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource("classpath:app.properties")
 @EnableJpaRepositories(basePackages="main.repository",entityManagerFactoryRef="emf")
 public class PersistanceConfig {
-	private static final String PROP_DATABASE_DRIVER = "db.driver";
-	private static final String PROP_DATABASE_PASSWORD = "db.password";
-	private static final String PROP_DATABASE_URL = "db.url";
-	private static final String PROP_DATABASE_USERNAME = "db.username";
+//	private static final String PROP_DATABASE_DRIVER = "db.driver";
+//	private static final String PROP_DATABASE_PASSWORD = "db.password";
+//	private static final String PROP_DATABASE_URL = "db.url";
+//	private static final String PROP_DATABASE_USERNAME = "db.username";
 	private static final String PROP_ENTITYMANAGER_PACKAGETS_TO_SCAN = "db.entitymanager.packages.to.scan";
 	
 	@Resource
