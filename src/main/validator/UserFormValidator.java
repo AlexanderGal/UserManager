@@ -7,7 +7,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import main.model.User;
+import main.entity.User;
+import main.repository.UserRepository;
 import main.service.UserService;
 
 @Component
@@ -18,7 +19,7 @@ public class UserFormValidator implements Validator{
 	EmailValidator emailValidator;
 	
 	@Autowired
-	UserService userService;
+	UserRepository userRepository;
 	
 	@Override
 	public boolean supports(Class<?> cl) {

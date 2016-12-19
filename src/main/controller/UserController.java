@@ -1,7 +1,6 @@
 package main.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import main.model.User;
+import main.entity.Frameworks;
+import main.entity.User;
+import main.repository.UserRepository;
 import main.service.UserService;
 import main.validator.UserFormValidator;
 
@@ -28,7 +29,8 @@ import main.validator.UserFormValidator;
 public class UserController {
 	private final Logger logger = LoggerFactory.getLogger(UserController.class);
 	@Autowired
-	private UserService userService;
+	//private UserService userService;
+	private UserRepository userRepository;
 	@Autowired
 	UserFormValidator userFormValidator;
 	//Main page
@@ -41,7 +43,7 @@ public class UserController {
 	@RequestMapping(value="/users", method = RequestMethod.GET)
 	public String showAllUsers(Model model){
 		logger.debug("showAllUsers()");
-		model.addAttribute("users", userService.findAll());
+		model.addAttribute("users", userRepository.findAll());
 		return "list";
 	}
 	//Use with anotation @Validated at User
@@ -72,7 +74,7 @@ public class UserController {
 				redirectAttributes.addFlashAttribute("msg","User updated successfully!");
 			}
 			
-			userService.saveOrUpdate(user);
+			userRepository.saveAndFlush(user);
 			//post/redirect/get
 			return "redirect:/users/"+user.getId();
 			//post/forward/get
@@ -90,8 +92,8 @@ public class UserController {
 		user.setAddress("abc 88");
 		user.setNewsletter(true);
 		user.setSex("M");
-		user.setFramework(new ArrayList<String>(Arrays.asList("Spring MVC")));
-		user.setSkill(new ArrayList<String>(Arrays.asList("Spring", "Hibernate", "SQL")));
+		user.setFramework(new ArrayList<Frameworks>());
+		//user.setSkill(new ArrayList<>(Arrays.asList("Spring", "Hibernate", "SQL")));
 		user.setCountry("SG");
 		user.setNumber(2);
 		model.addAttribute("userForm", user);
@@ -102,7 +104,7 @@ public class UserController {
 	@RequestMapping(value ="/users/{id}/update", method = RequestMethod.GET)
 	public String showUpdateUserForm(@PathVariable("id") Long id, Model model){
 		logger.debug("showUpdateUserForm() : {}", id);
-		User user = userService.findById(id);
+		User user = userRepository.findById(id);
 		model.addAttribute("userForm",user);
 		populateDefaultModel(model);
 		return "userform";
@@ -112,7 +114,7 @@ public class UserController {
 	public String deleteUser(@PathVariable("id") Long id, 
 								final RedirectAttributes redirectAttributes){
 		logger.debug("deleteUser() : {}",id);
-		userService.delete(id);
+		userRepository.delete(id);
 		redirectAttributes.addFlashAttribute("css","success");
 		redirectAttributes.addFlashAttribute("msg","User is deleted!");
 		return "redirect:/users";
@@ -121,7 +123,7 @@ public class UserController {
 	@RequestMapping(value="/users/{id}", method = RequestMethod.GET)
 	public String showUser(@PathVariable("id")Long id, Model model){
 		logger.debug("showUser() id : {}", id);
-		User user = userService.findById(id);
+		User user = userRepository.findById(id);
 		if(user == null){
 			model.addAttribute("css","danger");
 			model.addAttribute("msg","User not found");
@@ -130,13 +132,13 @@ public class UserController {
 		return "show";
 	}
 	private void populateDefaultModel(Model model){
-		List<String> frameworkList = new ArrayList<String>();
-		frameworkList.add("Spring MVC");
-		frameworkList.add("Struts 2");
-		frameworkList.add("JSF 2");
-		frameworkList.add("GWT");
-		frameworkList.add("Play");
-		frameworkList.add("Apache Wicket");
+		List<Frameworks> frameworkList = new ArrayList<Frameworks>();
+		frameworkList.add(new Frameworks("Spring MVC"));
+		frameworkList.add(new Frameworks("Struts 2"));
+		frameworkList.add(new Frameworks("JSF 2"));
+		frameworkList.add(new Frameworks("GWT"));
+		frameworkList.add(new Frameworks("Play"));
+		frameworkList.add(new Frameworks("Apache Wicket"));
 		model.addAttribute("frameworkList", frameworkList);
 		
 		Map<String, String> skill = new LinkedHashMap<String, String>();

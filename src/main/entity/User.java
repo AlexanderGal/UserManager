@@ -1,32 +1,64 @@
-package main.model;
+package main.entity;
 
 import java.util.List;
 
+import javax.persistence.*;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@Table(name="users")
 public class User {
-	//form:hidden - hidden value
+	@Id
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
+	@Column(length=10,unique=true,nullable=false,name="id")
 	private Long id;
-	//form:input - textbox
+	
+	@Column(name="name")
 	private String name;
-	//form:textarea - textbox
+	
+	@Column(name="email")
 	private String email;
-	//form:input - textarea
+
+	@Column(name="address")
 	private String address;
+	
 	//form:input-password
+	@Column(name="password")
 	private String password;
+	
+	
 	//form:input-password
 	private String confrimPassword;
+	
 	//form:checkbox - single checkbox
+	@Column(name="newsletter")
 	private boolean newsletter;
+	
 	//form:checkboxes - multiple checkboxes
-	private List<String> framework;
+	@Column(name="framework")
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
+	@JoinColumn(name="frameworks_id")
+	private List<Frameworks> framework;
+	
 	//form:radiobutton - radio button
+	@Column(name="sex")
 	private String sex;
+	
 	//form:radiobuttons-radio button
+	@Column(name="number")
 	private Integer number;
+	
 	//form:select - form:option - dropdown - single select
+	@Column(name="country")
 	private String country;
+	
 	//form:select-multiple=true - dropdown -multiple select
-	private List<String> skill;
+	@Column(name="skill")
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
+	@JoinColumn(name="skill_id")
+	private List<Skill> skill;
 
 	public User() {
 		super();
@@ -92,11 +124,11 @@ public class User {
 		this.newsletter = newsletter;
 	}
 
-	public List<String> getFramework() {
+	public List<Frameworks> getFramework() {
 		return framework;
 	}
 
-	public void setFramework(List<String> framework) {
+	public void setFramework(List<Frameworks> framework) {
 		this.framework = framework;
 	}
 
@@ -124,11 +156,11 @@ public class User {
 		this.country = country;
 	}
 
-	public List<String> getSkill() {
+	public List<Skill> getSkill() {
 		return skill;
 	}
 
-	public void setSkill(List<String> skill) {
+	public void setSkill(List<Skill> skill) {
 		this.skill = skill;
 	}
 }

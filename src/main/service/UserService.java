@@ -2,7 +2,7 @@ package main.service;
 
 import java.util.List;
 
-import main.model.User;
+import main.entity.User;
 
 public interface UserService {
 	User findById(Long id);
