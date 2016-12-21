@@ -1,9 +1,9 @@
 package main.controller;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+//import java.util.ArrayList;
+//import java.util.LinkedHashMap;
+//import java.util.List;
+//import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import main.entity.Frameworks;
+//import main.entity.Frameworks;
 import main.entity.User;
 import main.repository.UserRepository;
 import main.validator.UserFormValidator;
@@ -55,14 +55,16 @@ public class UserController {
 	//1.@ModelAttribute bind form value
 	//2.@Validated form validator
 	//3.RedirecAttributes for flash value
-	@RequestMapping(value="/users", method = RequestMethod.POST)
+	@RequestMapping(value="/users/ad", method = RequestMethod.POST)
 	public String saveOrUpdateUser(@ModelAttribute("userForm") @Validated User user,
 										BindingResult result, 
 										Model model, 
 										final RedirectAttributes redirectAttributes){
 		logger.debug("saveOrUpdateUser : {}", user);
 		if(result.hasErrors()){
-			populateDefaultModel(model);
+			System.out.println(result.getNestedPath());
+//			populateDefaultModel(model);
+			userRepository.saveAndFlush(user);
 			return "userform";
 		} else {
 			//add message to flash scope
@@ -91,12 +93,12 @@ public class UserController {
 		user.setAddress("abc 88");
 		user.setNewsletter(true);
 		user.setSex("M");
-		user.setFramework(new ArrayList<Frameworks>());
+//		user.setFramework(new ArrayList<Frameworks>());
 		//user.setSkill(new ArrayList<>(Arrays.asList("Spring", "Hibernate", "SQL")));
 		user.setCountry("SG");
 		user.setNumber(2);
 		model.addAttribute("userForm", user);
-		populateDefaultModel(model);
+//		populateDefaultModel(model);
 		return "userform";
 	}
 	//show update form
@@ -105,7 +107,7 @@ public class UserController {
 		logger.debug("showUpdateUserForm() : {}", id);
 		User user = userRepository.findById(id);
 		model.addAttribute("userForm",user);
-		populateDefaultModel(model);
+//		populateDefaultModel(model);
 		return "userform";
 	}
 	//delete user
@@ -130,37 +132,37 @@ public class UserController {
 		model.addAttribute("user",user);
 		return "show";
 	}
-	private void populateDefaultModel(Model model){
-		List<Frameworks> frameworkList = new ArrayList<Frameworks>();
-		frameworkList.add(new Frameworks("Spring MVC"));
-		frameworkList.add(new Frameworks("Struts 2"));
-		frameworkList.add(new Frameworks("JSF 2"));
-		frameworkList.add(new Frameworks("GWT"));
-		frameworkList.add(new Frameworks("Play"));
-		frameworkList.add(new Frameworks("Apache Wicket"));
-		model.addAttribute("frameworkList", frameworkList);
-		
-		Map<String, String> skill = new LinkedHashMap<String, String>();
-		skill.put("Hibernate", "Hibernate");
-		skill.put("Spring", "Spring");
-		skill.put("Struts", "Struts");
-		skill.put("Groovy", "Groovy");
-		skill.put("Grails", "Grails");
-		model.addAttribute("javaSkillList",skill);
-		
-		List<Integer> numbers = new ArrayList<Integer>();
-		numbers.add(1);
-		numbers.add(2);
-		numbers.add(3);
-		numbers.add(4);
-		numbers.add(5);
-		model.addAttribute("numberList", numbers);
-		
-		Map<String, String> country = new LinkedHashMap<String, String>();
-		country.put("US", "United Stated");
-		country.put("CN", "China");
-		country.put("SG", "Singapore");
-		country.put("MY", "Malaysia");
-		model.addAttribute("countryList",country);
-	}
+//	private void populateDefaultModel(Model model){
+//		List<Frameworks> frameworkList = new ArrayList<Frameworks>();
+//		frameworkList.add(new Frameworks("Spring MVC"));
+//		frameworkList.add(new Frameworks("Struts 2"));
+//		frameworkList.add(new Frameworks("JSF 2"));
+//		frameworkList.add(new Frameworks("GWT"));
+//		frameworkList.add(new Frameworks("Play"));
+//		frameworkList.add(new Frameworks("Apache Wicket"));
+//		model.addAttribute("frameworkList", frameworkList);
+//		
+//		Map<String, String> skill = new LinkedHashMap<String, String>();
+//		skill.put("Hibernate", "Hibernate");
+//		skill.put("Spring", "Spring");
+//		skill.put("Struts", "Struts");
+//		skill.put("Groovy", "Groovy");
+//		skill.put("Grails", "Grails");
+//		model.addAttribute("javaSkillList",skill);
+//		
+//		List<Integer> numbers = new ArrayList<Integer>();
+//		numbers.add(1);
+//		numbers.add(2);
+//		numbers.add(3);
+//		numbers.add(4);
+//		numbers.add(5);
+//		model.addAttribute("numberList", numbers);
+//		
+//		Map<String, String> country = new LinkedHashMap<String, String>();
+//		country.put("US", "United Stated");
+//		country.put("CN", "China");
+//		country.put("SG", "Singapore");
+//		country.put("MY", "Malaysia");
+//		model.addAttribute("countryList",country);
+//	}
 }

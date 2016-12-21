@@ -50,15 +50,16 @@ public class UserFormValidator implements Validator{
 		}
 		
 		if(!user.getPassword().equals(user.getConfirmPassword())){
+			System.out.println(user.getPassword()+"in"+user.getConfirmPassword());
 			errors.rejectValue("confirmPassword", "Diff.userform.confirmPassword");
 		}
 		
-		if(user.getFramework()==null || user.getFramework().size()<2){
-			errors.rejectValue("framework", "Valid.userForm.framework");
-		}
-		
-		if(user.getSkill()==null || user.getSkill().size()<3){
-			errors.rejectValue("skill", "Valid.userForm.skill");
-		}
+//		if(user.getFramework()==null || user.getFramework().size()<2){
+//			errors.rejectValue("framework", "Valid.userForm.framework");
+//		}
+//		
+//		if(user.getSkill()==null || user.getSkill().size()<3){
+//			errors.rejectValue("skill", "Valid.userForm.skill");
+//		}
 	}
 }

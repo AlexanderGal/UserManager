@@ -38,12 +38,13 @@
 					<td>${user.id}</td>
 					<td>${user.name}</td>
 					<td>${user.email}</td>
-					 <td>
+				 <%--  	 <td>
 						<c:forEach var="framework" items="${user.framework}" varStatus="loop">
 							${framework}
 								<c:if test="${not loop.last}">,</c:if>
 						</c:forEach>
 					</td>
+					--%>
 					<td>
 						<spring:url value="/users/${user.id}" var="userUrl"></spring:url>
 						<spring:url value="/users/${user.id}/delete" var="deleteUrl"></spring:url>

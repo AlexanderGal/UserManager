@@ -19,7 +19,7 @@
 	</c:choose>
 	<br/>
 	
-	<spring:url value="/users" var="userActionUrl"/>
+	<spring:url value="/users/ad" var="userActionUrl"/>
 	
 	<form:form class="form-horizontal" method="post"
 					modelAttribute="userForm" action="${userActionUrl}">
@@ -60,7 +60,7 @@
 					<label class="col-sm-2 control-label">confirm Password</label>
 						<div class="col-sm-10">
 							<form:password path="confirmPassword" class="form-control" id="password" placeholder="password"/>
-							<form:password path="confirmPassword" class="control-label"/>
+							<form:errors path="confirmPassword" class="control-label"/>
 						</div>
 				</div>
 			</spring:bind>
@@ -89,7 +89,7 @@
 				</div>
 			</spring:bind>
 			
-			<spring:bind path="framework">
+		<%--  	<spring:bind path="framework">
 				<div class="form-group ${status.error ? 'has-error' : ''}">
 					<label class="col-sm-2 control-label">Web Frameworks</label>
 					<div class="col-sm-10">
@@ -99,7 +99,7 @@
 					</div>
 				</div>
 			</spring:bind>
-			
+		 --%>	
 			<spring:bind path="sex">
 				<div class="form-group ${status.error ? 'has-error' : ''}">
 					<label class="col-sm-2 control-label">Sex</label>
@@ -107,7 +107,7 @@
 						<label class="radio-inline">
 							<form:radiobutton path="sex" value="M"/> Male						
 						</label>
-						<label class="radion-inline">
+						<label class="radio-inline">
 							<form:radiobutton path="sex" value="F"/> Female
 						</label>
 						<br>
@@ -139,7 +139,7 @@
 					<div class="col-sm-5"></div>
 				</div>
 			</spring:bind>
-			
+			<%--  
 			<spring:bind path="skill">
 				<div class="form-group ${status.error ? 'has-error' : ''}">
 					<label class="col-sm-2 control-label">Java Skills</label>
@@ -150,7 +150,7 @@
 					<div class="col-sm-5"></div>
 				</div>
 			</spring:bind>
-			
+			 --%>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<c:choose>

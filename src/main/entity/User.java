@@ -1,5 +1,6 @@
 package main.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -36,11 +37,11 @@ public class User {
 	@Column(name="newsletter")
 	private boolean newsletter;
 	
-	//form:checkboxes - multiple checkboxes
-	@Column(name="framework")
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
-	@JoinColumn(name="frameworks_id")
-	private List<Frameworks> framework;
+//	//form:checkboxes - multiple checkboxes
+//	@Column(name="framework")
+//	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+//	@JoinColumn(name="frameworks_id")
+//	private List<Frameworks> frameworks = new ArrayList<Frameworks>();
 	
 	//form:radiobutton - radio button
 	@Column(name="sex")
@@ -54,11 +55,11 @@ public class User {
 	@Column(name="country")
 	private String country;
 	
-	//form:select-multiple=true - dropdown -multiple select
-	@Column(name="skill")
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
-	@JoinColumn(name="skill_id")
-	private List<Skill> skill;
+//	//form:select-multiple=true - dropdown -multiple select
+//	@Column(name="skill")
+//	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+//	@JoinColumn(name="skill_id")
+//	private List<Skill> skill = new ArrayList<Skill>();
 
 	public User() {
 		super();
@@ -124,13 +125,13 @@ public class User {
 		this.newsletter = newsletter;
 	}
 
-	public List<Frameworks> getFramework() {
-		return framework;
-	}
-
-	public void setFramework(List<Frameworks> framework) {
-		this.framework = framework;
-	}
+//	public List<Frameworks> getFramework() {
+//		return frameworks;
+//	}
+//
+//	public void setFramework(List<Frameworks> framework) {
+//		this.frameworks = framework;
+//	}
 
 	public String getSex() {
 		return sex;
@@ -156,11 +157,11 @@ public class User {
 		this.country = country;
 	}
 
-	public List<Skill> getSkill() {
-		return skill;
-	}
-
-	public void setSkill(List<Skill> skill) {
-		this.skill = skill;
-	}
+//	public List<Skill> getSkill() {
+//		return skill;
+//	}
+//
+//	public void setSkill(List<Skill> skill) {
+//		this.skill = skill;
+//	}
 }

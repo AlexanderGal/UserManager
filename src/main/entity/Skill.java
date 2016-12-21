@@ -21,6 +21,10 @@ public class Skill {
 	public Skill() {
 		super();
 	}
+	
+	public Skill(String name){
+		this.skillName = name;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -38,5 +42,10 @@ public class Skill {
 	}
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}
+
+	@Override
+	public String toString() {
+		return  skillName;
 	}
 }

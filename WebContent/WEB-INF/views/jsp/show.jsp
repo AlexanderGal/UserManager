@@ -40,18 +40,18 @@
 			<label class="col-sm-2">Newsletter</label>
 			<div class="col-sm-10">${user.newsletter}</div>
 		</div>
-		<div class="row">
+		<%-- <div class="row">
 			<label class="col-sm-2">Web Frameworks</label>
 			<div class="col-sm-10">${user.frameworks}</div>
-		</div>
+		</div> --%>
 		<div class="row">
 			<label class="col-sm-2">Country</label>
 			<div class="col-sm-10">${user.country}</div>
 		</div>
-		<div class="row">
+		<%--  <div class="row">
 			<label class="col-sm-2">Skill</label>
 			<div class="col-sm-10">${user.skill}</div>
-		</div>
+		</div> --%>
 	</div>
 	
 	<jsp:include page="./footer.jsp"/>
