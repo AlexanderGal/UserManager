@@ -52,8 +52,12 @@
 			<label class="col-sm-2">Skill</label>
 			<div class="col-sm-10">${user.skill}</div>
 		</div> --%>
-	</div>
 	
+		<div class="row">
+			<spring:url value="/" var="urlHome"/>
+			<button class="btn-lg btn-primary" onclick="location.href='${urlHome}'">Back</button>
+		</div>
+	</div>
 	<jsp:include page="./footer.jsp"/>
 
 </html>

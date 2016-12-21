@@ -1,9 +1,9 @@
 package main.controller;
 
-//import java.util.ArrayList;
-//import java.util.LinkedHashMap;
-//import java.util.List;
-//import java.util.Map;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,9 +62,8 @@ public class UserController {
 										final RedirectAttributes redirectAttributes){
 		logger.debug("saveOrUpdateUser : {}", user);
 		if(result.hasErrors()){
-			System.out.println(result.getNestedPath());
-//			populateDefaultModel(model);
-			userRepository.saveAndFlush(user);
+			System.out.println(result.getGlobalErrorCount() + result.getNestedPath());
+			populateDefaultModel(model);
 			return "userform";
 		} else {
 			//add message to flash scope
@@ -74,7 +73,7 @@ public class UserController {
 			} else {
 				redirectAttributes.addFlashAttribute("msg","User updated successfully!");
 			}
-			
+			System.out.println("here in else");
 			userRepository.saveAndFlush(user);
 			//post/redirect/get
 			return "redirect:/users/"+user.getId();
@@ -98,7 +97,7 @@ public class UserController {
 		user.setCountry("SG");
 		user.setNumber(2);
 		model.addAttribute("userForm", user);
-//		populateDefaultModel(model);
+		populateDefaultModel(model);
 		return "userform";
 	}
 	//show update form
@@ -107,11 +106,11 @@ public class UserController {
 		logger.debug("showUpdateUserForm() : {}", id);
 		User user = userRepository.findById(id);
 		model.addAttribute("userForm",user);
-//		populateDefaultModel(model);
+		populateDefaultModel(model);
 		return "userform";
 	}
 	//delete user
-	@RequestMapping(value="/users/{id}/delete", method = RequestMethod.POST)
+	@RequestMapping(value ="/users/{id}/delete", method = RequestMethod.GET)
 	public String deleteUser(@PathVariable("id") Long id, 
 								final RedirectAttributes redirectAttributes){
 		logger.debug("deleteUser() : {}",id);
@@ -132,7 +131,7 @@ public class UserController {
 		model.addAttribute("user",user);
 		return "show";
 	}
-//	private void populateDefaultModel(Model model){
+	private void populateDefaultModel(Model model){
 //		List<Frameworks> frameworkList = new ArrayList<Frameworks>();
 //		frameworkList.add(new Frameworks("Spring MVC"));
 //		frameworkList.add(new Frameworks("Struts 2"));
@@ -150,19 +149,19 @@ public class UserController {
 //		skill.put("Grails", "Grails");
 //		model.addAttribute("javaSkillList",skill);
 //		
-//		List<Integer> numbers = new ArrayList<Integer>();
-//		numbers.add(1);
-//		numbers.add(2);
-//		numbers.add(3);
-//		numbers.add(4);
-//		numbers.add(5);
-//		model.addAttribute("numberList", numbers);
+		List<Integer> numbers = new ArrayList<Integer>();
+		numbers.add(1);
+		numbers.add(2);
+		numbers.add(3);
+		numbers.add(4);
+		numbers.add(5);
+		model.addAttribute("numberList", numbers);
 //		
-//		Map<String, String> country = new LinkedHashMap<String, String>();
-//		country.put("US", "United Stated");
-//		country.put("CN", "China");
-//		country.put("SG", "Singapore");
-//		country.put("MY", "Malaysia");
-//		model.addAttribute("countryList",country);
-//	}
+		Map<String, String> country = new LinkedHashMap<String, String>();
+		country.put("US", "United Stated");
+		country.put("CN", "China");
+		country.put("SG", "Singapore");
+		country.put("MY", "Malaysia");
+		model.addAttribute("countryList",country);
+	}
 }

@@ -27,7 +27,7 @@
 					<th>#ID</th>
 					<th>#Name</th>
 					<th>Email</th>
-					<th>framework</th>
+					<!--  <th>framework</th> -->
 					<th>Action</th>
 				</tr>
 			</thead>	
@@ -55,7 +55,7 @@
 						<button class="btn btn-primary" 
 												onclick="location.href='${updateUrl}'">Update</button>						
 						<button class="btn btn-danger"
-												onclick="this.disabled=true;post('${deleteUrl}')">Delete</button>						
+												onclick="this.disabled=true;location.href='${deleteUrl}'">Delete</button>						
 					</td>
 				</tr>
 			</c:forEach>

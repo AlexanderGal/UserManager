@@ -14,7 +14,7 @@ public class User {
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy = "increment")
 	@Column(length=10,unique=true,nullable=false,name="id")
-	private Long id;
+	private Long userId;
 	
 	@Column(name="name")
 	private String name;
@@ -66,15 +66,19 @@ public class User {
 	}
 
 	public boolean isNew() {
-		return (this.id == null);
+		return (this.userId == null);
 	}
 	
 	public Long getId() {
-		return id;
+		return userId;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		this.userId = id;
+	}
+	
+	public void setId(String id) {
+		this.userId = Long.parseLong(id);
 	}
 
 	public String getName() {
